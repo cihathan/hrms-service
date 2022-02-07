@@ -18,7 +18,7 @@ public class UserService {
     private final ModelMapper modelMap;
 
     public UserDto saveUser(Users user) throws ValidationException {
-        if (user.getName() == null || user.getName().length()==0){
+        if (user.getFirstName() == null || user.getFirstName().length()==0){
             throw new ValidationException("Kullanıcı adı boş Geçemez");
         }
         user.setAuthLevel(0);
@@ -26,8 +26,10 @@ public class UserService {
 
         UserDto userdto = new UserDto();
         userdto.setId(savedUser.getId());
-        userdto.setName(savedUser.getName());
-
+        userdto.setName(savedUser.getFirstName());
+        userdto.setUsername(savedUser.getFirstName());
+        userdto.setAuthLevel(savedUser.getAuthLevel());
+        
         return userdto;
     }
 
