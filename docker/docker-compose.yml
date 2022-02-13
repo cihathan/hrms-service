@@ -1,0 +1,37 @@
+version: '3.1'
+
+networks:
+  hrms:
+    external: true
+
+
+services:
+
+  mysql:
+    image: mysql
+    restart: always
+    container_name: mysql
+    networks:
+      - hrms
+    environment:
+      MYSQL_DATABASE: 'hrms'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+
+
+  hrms-service:
+    image: cihathan/hrms-service
+    container_name: hrms-service
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+    networks:
+      - hrms
+    environment:
+      APP_PORT: 8080
+      MYSQL_DB: 'mysql'

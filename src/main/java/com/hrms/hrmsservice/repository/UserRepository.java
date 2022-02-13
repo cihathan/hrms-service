@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users,Long> {
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-    @Query("SELECT u FROM Users u WHERE u.name = ?1")
-    public List<Users> userlarinAdiniCek(String name);
+	@Query("SELECT u FROM Users u WHERE u.firstName = ?1")
+	public List<Users> getUsersByName(String name);
 
-    List<Users> getUsersByName(String name);
+	List<Users> getUsersByFirstName(String name);
 
 }
